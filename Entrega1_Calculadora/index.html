@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Calculadora</title>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+      const vaciar = () => {
+        document.getElementById("pantalla").value = "";
+      };
+
+      let operator = "";
+      let num1 = 0;
+
+      const cuadrado = () => {
+        if (!validar()) return;
+        let num = document.getElementById("pantalla");
+        num.value = num.value * num.value;
+        rellenar_info();
+      };
+
+      const mod = () => {
+        if (!validar()) return;
+        let num = document.querySelector("#pantalla");
+        if (num.value < 0) {
+          num.value = -num.value;
+          rellenar_info();
+        }
+      };
+
+      const fact = () => {
+        if (!validar()) return;
+        let num = document.querySelector("#pantalla");
+        let a = 1;
+        for (let i = num.value; i > 0; i--) {
+          a = a * i;
+        }
+        num.value = a;
+        rellenar_info();
+      };
+
+      const add = () => {
+        if (!validar()) return;
+        let num = document.querySelector("#pantalla");
+        operator = "add";
+        num1 = num.value;
+      };
+
+      const sub = () => {
+        if (!validar()) return;
+        let num = document.querySelector("#pantalla");
+        operator = "sub";
+        num1 = num.value;
+      };
+
+      const mul = () => {
+        if (!validar()) return;
+        let num = document.querySelector("#pantalla");
+        operator = "mul";
+        num1 = num.value;
+      };
+
+      const div = () => {
+        if (!validar()) return;
+        let num = document.querySelector("#pantalla");
+        operator = "div";
+        num1 = num.value;
+      };
+
+      const eq = () => {
+        if (!validar()) return;
+        let num = document.querySelector("#pantalla");
+        switch (operator) {
+          case "add":
+            num.value = parseInt(num1) + parseInt(num.value);
+            break;
+          case "sub":
+            num.value = parseInt(num1) - parseInt(num.value);
+            break;
+          case "mul":
+            num.value = parseInt(num1) * parseInt(num.value);
+            break;
+          case "div":
+            num.value = parseInt(num1) / parseInt(num.value);
+            break;
+          default:
+            return;
+            break;
+        }
+        operator = "";
+        num1 = 0;
+        rellenar_info();
+      };
+
+      const sumatorio = () => {
+        if (!validar()) return;
+        let nums = document.querySelector("#pantalla");
+        let list = nums.value.split(",");
+
+        let i = 0,
+          acc = 0;
+        while (i < list.length) acc += +list[i++];
+        nums.value = acc;
+        rellenar_info();
+      };
+
+      const ordenar = () => {
+        if (!validar()) return;
+        let nums = document.querySelector("#pantalla");
+        let list = nums.value.split(",");
+
+        nums.value = list.sort((a, b) => a - b);
+      };
+
+      const revertir = () => {
+        if (!validar()) return;
+        let nums = document.querySelector("#pantalla");
+        let list = nums.value.split(",");
+
+        nums.value = list.reverse();
+      };
+
+      const quitar = () => {
+        if (!validar()) return;
+        let nums = document.querySelector("#pantalla");
+        let list = nums.value.split(",");
+
+        list.pop();
+        nums.value = list;
+      };
+
+      const rellenar_info = () => {
+        let num = document.querySelector("#pantalla").value;
+        let numInfo = document.querySelectorAll(".grande")[0];
+        let str = "";
+        str =
+          num < 100
+            ? "es menor que 100"
+            : num > 200
+            ? "es superior a 200"
+            : "está entre 100 y 200";
+
+        numInfo.innerHTML = `Info: El resultado ${str}`;
+      };
+
+      const validar = () => {
+        let num = document.querySelector("#pantalla");
+
+        if (!num.value.includes(",")) {
+          if (!parseInt(num.value)) {
+            num.value = "Error";
+            return false;
+          }
+        } else {
+          let list = num.value.split(",");
+          for (let i = 0; i < list.length; i++) {
+            if (!parseInt(list[i])) {
+              num.value = "Error";
+              return false;
+            }
+          }
+        }
+        return true;
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Calculadora de CORE</h1>
+
+    Número:
+    <input type="text" id="pantalla" onclick="vaciar()" />
+
+    <h2 class="grande" id="info" title="Info sobre el número">
+      Info sobre el número
+    </h2>
+
+    <h3>Operaciones unitarias</h3>
+    <button id="cuadrado" onclick="cuadrado()">x<sup>2</sup></button>
+    <button id="modulo" onclick="mod()">Mod</button>
+    <button id="factorial" onclick="fact()">n!</button>
+
+    <h3>Operaciones binarias</h3>
+    <button id="suma" onclick="add()">+</button>
+    <button id="resta" onclick="sub()">-</button>
+    <button id="multiplicacion" onclick="mul()">*</button>
+    <button id="division" onclick="div()">/</button>
+    <button id="igual" onclick="eq()">=</button>
+
+    <h3>Operaciones en formato CSV</h3>
+    <button id="sumatorio" onclick="sumatorio()">&sum;x</button>
+    <button id="ordenar" onclick="ordenar()">ordenar</button>
+    <button id="revertir" onclick="revertir()">revertir</button>
+    <button id="quitar" onclick="quitar()">quitar</button>
+  </body>
+</html>
