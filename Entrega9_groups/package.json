@@ -1,0 +1,15 @@
+{
+    "name": "Entrega9_groups",
+    "author": "CORE-2020",
+    "license": "GNU",
+    "version": "0.1.9",
+    "info": {
+        "githubURL": "CORE-2020/Entrega9_groups",
+        "serverUrl": "https://autocorector.dit.upm.es/",
+        "courseId": "8249",
+        "assignmentId": "79813"
+    },
+    "dependencies": {
+        "nodegit": "^0.26.5"
+    }
+}
