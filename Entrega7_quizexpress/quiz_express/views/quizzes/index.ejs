@@ -1,0 +1,8 @@
+<section>
+  <h2>Lista de Quizzes</h2>
+  <% for( let quiz of quizzes ) { %>
+  <p>
+    <%= quiz.question %>: <%= quiz.answer %>
+  </p>
+  <% } %>
+</section>
